@@ -6,6 +6,7 @@ import { fetchPlugin } from './pluggins/fetchPlugin';
 
 const App = () => {
   const ref = useRef<esbuild.Service>();
+  const iframe = useRef<any>();
   const [input, setInput] = useState('');
   const [code, setCode] = useState('');
 
@@ -31,10 +32,23 @@ const App = () => {
       plugins: [unpkgPathPlugin(), fetchPlugin(input)],
       define: { 'process.env.NODE_ENV': '"production"', global: 'window' },
     });
-    console.log(result);
-
-    setCode(result.outputFiles[0].text);
+    //setCode(result.outputFiles[0].text);
+    iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*');
   };
+
+  const html = `
+  <html>
+    <head></head>
+    <body>
+      <div id='root'></div>
+      <script>
+        window.addEventListener('message', (event) => {
+          eval(event.data);
+        }, false);
+      </script>
+    </body>
+  </html>
+  `;
 
   return (
     <div>
@@ -46,6 +60,12 @@ const App = () => {
         <button onClick={onClick}>Submit</button>
       </div>
       <pre>{code}</pre>
+      <iframe
+        ref={iframe}
+        title="previewer"
+        sandbox="allow-scripts"
+        srcDoc={html}
+      />
     </div>
   );
 };
