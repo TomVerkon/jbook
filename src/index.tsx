@@ -25,6 +25,11 @@ const App = () => {
     if (!ref.current) {
       return;
     }
+
+    // reset the iframe content before each submission in case
+    // it was previously ruined by something like document.body.innerHHTML = ''
+    iframe.current.srcdoc = html;
+
     const result = await ref.current.build({
       entryPoints: ['index.js'],
       bundle: true,
@@ -43,7 +48,13 @@ const App = () => {
       <div id='root'></div>
       <script>
         window.addEventListener('message', (event) => {
-          eval(event.data);
+          try {
+            eval(event.data);
+          } catch (err) {
+            const root = document.getElementById('root');
+            root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>';
+            console.error(err);
+          }
         }, false);
       </script>
     </body>
