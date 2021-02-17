@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 const App = () => {
-  return <h1>Hey! How you doin?</h1>;
+  return <div className="container has-text-black">Hey! How you doin?</div>;
 };
 
 ReactDOM.render(
