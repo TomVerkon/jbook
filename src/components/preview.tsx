@@ -6,8 +6,7 @@ interface PreviewProps {
 
 const html = `
 <html>
-  <head>
-  </head>
+  <head></head>
   <body>
     <div id='root'></div>
     <script>
@@ -15,7 +14,7 @@ const html = `
         try {
           eval(event.data);
         } catch (err) {
-          const root = document.getElementById('root');
+          const root = document.querySelector('#root');
           root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>';
           console.error(err);
         }
@@ -36,6 +35,7 @@ const Preview: React.FC<PreviewProps> = ({ code }) => {
   }, [code]);
   return (
     <iframe
+      style={{ backgroundColor: 'white' }}
       ref={iframe}
       title="previewer"
       sandbox="allow-scripts"
