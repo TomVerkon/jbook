@@ -1,2 +1,2 @@
-export * from './store';
+export * from './cells/types';
 export * from './cells';

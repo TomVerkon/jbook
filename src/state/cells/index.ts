@@ -39,6 +39,8 @@ export const insertCellBefore = (id: string | null, cellType: CellTypes): Insert
   }
 };
 
+export const actionCreators = { deleteCell, moveCell, insertCellBefore, updateCell };
+
 type Action =
   | MoveCellAction
   | DeleteCellAction

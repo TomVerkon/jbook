@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import thunk from "redux-thunk";
-import cellsReducer from "./cells";
+import cellsReducer, { actionCreators } from "./cells";
 
 const reducers = combineReducers({
   cells: cellsReducer
@@ -15,18 +15,18 @@ export const store = createStore(
 // typescript type definition
 export type RootState = ReturnType<typeof reducers>;
 
-// store.dispatch(insertCellBefore(null, 'code'));
+store.dispatch(actionCreators.insertCellBefore(null, 'text'));
+store.dispatch(actionCreators.insertCellBefore(null, 'code'));
+let id = store.getState().cells.order[1];
+store.dispatch(actionCreators.insertCellBefore(null, 'code'));
+store.dispatch(actionCreators.insertCellBefore(null, 'text'));
 // console.log(store.getState());
-// const icbId = store.getState().cells.order[0];
-// store.dispatch(insertCellBefore(icbId, 'text'));
+store.dispatch(actionCreators.updateCell(id, '<div>Hello World!</div>'));
+id = store.getState().cells.order[3];
 // console.log(store.getState());
-// store.dispatch(insertCellBefore(icbId, 'code'));
+store.dispatch(actionCreators.moveCell(id, 'up'));
 // console.log(store.getState());
-// store.dispatch(updateCell(icbId, 'Hello World!'));
-// console.log(store.getState());
-// store.dispatch(moveCell(icbId, 'up'));
-// console.log(store.getState());
-// store.dispatch(deleteCell(icbId));
+// store.dispatch(actionCreators.deleteCell(icbId));
 // console.log(store.getState());
 
 // store.dispatch({ type: cTypes.ActionType.INSERT_CELL_BEFORE, payload: { id: '123', type: 'code' } });
