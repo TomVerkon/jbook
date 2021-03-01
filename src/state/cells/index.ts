@@ -5,7 +5,7 @@ import {
   CellsState,
   DeleteCellAction,
   DirectionTypes,
-  InsertCellBeforeAction,
+  InsertCellAfterAction,
   MoveCellAction,
   UpdateCellAction
 } from './types';
@@ -32,20 +32,20 @@ export const moveCell = (id: string, direction: DirectionTypes): MoveCellAction 
   }
 };
 
-export const insertCellBefore = (id: string | null, cellType: CellTypes): InsertCellBeforeAction => {
+export const insertCellAfter = (id: string | null, cellType: CellTypes): InsertCellAfterAction => {
   return {
-    type: ActionType.INSERT_CELL_BEFORE,
+    type: ActionType.INSERT_CELL_AFTER,
     payload: { id, type: cellType }
   }
 };
 
-export const actionCreators = { deleteCell, moveCell, insertCellBefore, updateCell };
+export const actionCreators = { deleteCell, moveCell, insertCellAfter, updateCell };
 
 type Action =
   | MoveCellAction
   | DeleteCellAction
   | UpdateCellAction
-  | InsertCellBeforeAction;
+  | InsertCellAfterAction;
 
 /* Example Data:
   data: {
@@ -83,7 +83,7 @@ const reducer = produce((state: CellsState = initialState, action: Action): Cell
       delete state.data[action.payload];
       state.order = state.order.filter((id) => id !== action.payload);
       return state;
-    case ActionType.INSERT_CELL_BEFORE:
+    case ActionType.INSERT_CELL_AFTER:
       const cell: Cell = {
         content: '',
         type: action.payload.type,
@@ -92,9 +92,9 @@ const reducer = produce((state: CellsState = initialState, action: Action): Cell
       state.data[cell.id] = cell;
       const idx = state.order.findIndex(id => id === action.payload.id);
       if (idx === -1) {
-        state.order.push(cell.id);
+        state.order.unshift(cell.id);
       } else {
-        state.order.splice(idx, 0, cell.id);
+        state.order.splice(idx + 1, 0, cell.id);
       }
       return state;
     default:

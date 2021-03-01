@@ -15,11 +15,11 @@ export const store = createStore(
 // typescript type definition
 export type RootState = ReturnType<typeof reducers>;
 
-store.dispatch(actionCreators.insertCellBefore(null, 'text'));
-store.dispatch(actionCreators.insertCellBefore(null, 'code'));
+store.dispatch(actionCreators.insertCellAfter(null, 'text'));
+store.dispatch(actionCreators.insertCellAfter(null, 'code'));
 let id = store.getState().cells.order[1];
-store.dispatch(actionCreators.insertCellBefore(null, 'code'));
-store.dispatch(actionCreators.insertCellBefore(null, 'text'));
+store.dispatch(actionCreators.insertCellAfter(id, 'code'));
+store.dispatch(actionCreators.insertCellAfter(null, 'text'));
 // console.log(store.getState());
 store.dispatch(actionCreators.updateCell(id, '<div>Hello World!</div>'));
 id = store.getState().cells.order[3];

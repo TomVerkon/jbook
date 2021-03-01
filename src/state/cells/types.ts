@@ -12,7 +12,7 @@ export enum ActionType {
   UPDATE_CELL = 'jbook/cells/update_cell',
   MOVE_CELL = 'jbook/cells/move_cell',
   DELETE_CELL = 'jbook/cells/delete_cell',
-  INSERT_CELL_BEFORE = 'jbook/cells/insert_cell_before',
+  INSERT_CELL_AFTER = 'jbook/cells/insert_cell_after',
 }
 
 export interface CellsState {
@@ -46,8 +46,8 @@ export interface UpdateCellAction {
 }
 
 // If id is null append to the end of the order array
-export interface InsertCellBeforeAction {
-  type: ActionType.INSERT_CELL_BEFORE;
+export interface InsertCellAfterAction {
+  type: ActionType.INSERT_CELL_AFTER;
   payload: {
     id: string | null,
     type: CellTypes,
