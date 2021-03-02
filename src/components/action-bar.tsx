@@ -1,6 +1,6 @@
 import './action-bar.css';
 import React from 'react';
-import { useActions } from '../state/use-actions';
+import { useActions } from '../hooks/use-actions';
 import ActionButton from './action-button';
 
 interface ActionBarProps {

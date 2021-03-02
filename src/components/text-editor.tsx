@@ -1,10 +1,8 @@
 import MDEditor from '@uiw/react-md-editor';
 import { useState, useEffect, useRef } from 'react';
 import { Cell } from '../state';
-import { useActions } from '../state/use-actions';
+import { useActions } from '../hooks/use-actions';
 import './text-editor.css';
-import Actionbar from './action-bar';
-import ActionBar from './action-bar';
 
 interface TextEditorProps {
   cell: Cell;

@@ -1,6 +1,6 @@
 import './cell-list-item.css';
 import React from 'react';
-import { Cell } from '../state/cells/types';
+import { Cell } from '../state/cell';
 import CodeCell from '../components/code-cell';
 import TextEditor from '../components/text-editor';
 import ActionBar from './action-bar';

@@ -4,7 +4,7 @@ import CodeEditor from './code-editor';
 import Preview from './preview';
 import Resizable from './resizable';
 import { Cell } from '../state';
-import { useActions } from '../state/use-actions';
+import { useActions } from '../hooks/use-actions';
 
 interface CodeCellProps {
   cell: Cell;
