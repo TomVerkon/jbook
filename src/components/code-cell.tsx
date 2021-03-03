@@ -29,8 +29,6 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
     return cumulativeCode;
   });
 
-  console.log(cumulativeCode);
-
   useEffect(() => {
     if (!bundle) {
       createBundle(cell.id, cumulativeCode.join('\n'));
