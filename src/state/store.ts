@@ -18,5 +18,20 @@ store.dispatch(updateCell(id, 'document.querySelector(\'#root\').innerHTML = \'<
 //store.dispatch(updateCell(id, 'console.log(1234)'));
 id = store.getState().cells.order[3];
 store.dispatch(moveCell(id, 'up'));
+id = store.getState().cells.order[3];
+store.dispatch(updateCell(id, `import React from 'react';
+import ReactDOM from 'react-dom';
+
+const App = () => {
+  return <div className="container has-text-black">Hey! How you doin?</div>;
+};
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);`));
+
 // store.dispatch(actionCreators.deleteCell(icbId));
 
