@@ -5,9 +5,9 @@ import { produce } from 'immer';
 interface BundlesState {
   [key: string]: {
     loading: boolean;
-    err: string | null;
+    err: string;
     code: string;
-  }
+  } | undefined;
 }
 const initialState: BundlesState = {}
 

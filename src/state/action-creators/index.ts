@@ -45,7 +45,7 @@ const bundleStart = (cellId: string): BundleStartAction => {
   return { type: ActionType.BUNDLE_START, payload: { cellId }, }
 };
 
-const bundleComplete = (cellId: string, code: string, err: string | null): BundleCompleteAction => {
+const bundleComplete = (cellId: string, code: string, err: string): BundleCompleteAction => {
   return { type: ActionType.BUNDLE_COMPLETE, payload: { cellId, bundle: { code, err }, } }
 };
 
@@ -54,6 +54,5 @@ export const createBundle = (cellId: string, input: string) => {
     dispatch(bundleStart(cellId));
     const bundledOutput = await bundle(input);
     dispatch(bundleComplete(cellId, bundledOutput.code, bundledOutput.err));
-
   };
 };

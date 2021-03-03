@@ -12,9 +12,10 @@ export const store = createStore(
 store.dispatch(insertCellAfter(null, 'code'));
 store.dispatch(insertCellAfter(null, 'text'));
 let id = store.getState().cells.order[1];
-store.dispatch(insertCellAfter(id, 'code'));
 store.dispatch(insertCellAfter(id, 'text'));
-store.dispatch(updateCell(id, '<div>Hello World!</div>'));
+store.dispatch(insertCellAfter(id, 'code'));
+store.dispatch(updateCell(id, 'document.querySelector(\'#root\').innerHTML = \'<div>Hello World!</div>\''));
+//store.dispatch(updateCell(id, 'console.log(1234)'));
 id = store.getState().cells.order[3];
 store.dispatch(moveCell(id, 'up'));
 // store.dispatch(actionCreators.deleteCell(icbId));
