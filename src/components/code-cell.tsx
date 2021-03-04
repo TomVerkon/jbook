@@ -14,29 +14,34 @@ interface CodeCellProps {
 const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
   const { updateCell, createBundle } = useActions();
   const bundle = useTypedSelector((state) => state.bundles[cell.id]);
+  const showFunc = `
+  import _React from 'react';
+  import _ReactDOM from 'react-dom';
+  var show = (value) => {
+    if (typeof value === 'object') {
+      const root = document.querySelector('#root');
+      if (value.$$typeof && value.props) {
+        _ReactDOM.render(value, root);
+      } else {
+        root.innerHTML = JSON.stringify(value);
+      }
+    } else {
+      root.innerHTML = value;
+    }
+  }
+  `;
+  const showFuncNoop = `var show = () => {} `;
   const cumulativeCode = useTypedSelector((state) => {
     const { data, order } = state.cells;
     const orderedCells = order.map((id) => data[id]);
-    const cumulativeCode = [
-      `
-      import _React from 'react';
-      import _ReactDOM from 'react-dom';
-      const show = (value) => {
-        if (typeof value === 'object') {
-          const root = document.querySelector('#root');
-          if (value.$$typeof && value.props) {
-            _ReactDOM.render(value, root);
-          } else {
-            root.innerHTML = JSON.stringify(value);
-          }
-        } else {
-          root.innerHTML = value;
-        }
-      }
-      `,
-    ];
+    const cumulativeCode = [];
     for (let c of orderedCells) {
       if (c.type === 'code') {
+        if (c.id === cell.id) {
+          cumulativeCode.push(showFunc);
+        } else {
+          cumulativeCode.push(showFuncNoop);
+        }
         cumulativeCode.push(c.content);
       }
       if (c.id === cell.id) {
