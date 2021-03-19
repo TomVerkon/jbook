@@ -2,10 +2,11 @@ import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import thunk from "redux-thunk";
 import reducers from './reducers';
+import { persistMiddleware } from './middlewares/persist-middleware';
 
 export const store = createStore(
   reducers,
-  composeWithDevTools(applyMiddleware(thunk))
+  composeWithDevTools(applyMiddleware(thunk, persistMiddleware))
 );
 
 // store.dispatch(insertCellAfter(null, 'code'));
